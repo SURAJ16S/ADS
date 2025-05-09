@@ -7,36 +7,41 @@ class heaptree{
     int heap[10];
 
     void insert(){
+        //accept total keys
         cout<<"Enter total number of keys: ";
         cin>>totalkeys;
+
+        //accept each key and put into heap array 
         for(int loc=0;loc<totalkeys;loc++){
             cout<<"Enter key: ";
             cin>>heap[loc];
+            //pass the location in built function
             built(loc);
         }
     }
 
     void built(int loc){
+        //update the parent location
         int parent = (loc - 1) / 2;
-        while (loc > 0 && heap[parent] > heap[loc]){
-            swap(heap[parent], heap[loc]);
-            loc = parent;
+        while (loc > 0 && heap[parent] > heap[loc]){   //apply the while loop for loc>0 and head[parent] > head[loc]
+            swap(heap[parent], heap[loc]);   //swap the position
+            loc = parent;       //update the location and parent value
             parent = (loc - 1) / 2;
         }
     }
 
     void display(){
-        if (totalkeys > 0) {
-            cout<<"Heap Tree: ";
-            for(int loc=0;loc<totalkeys;loc++){
-                cout<<heap[loc]<<" ";
+        if (totalkeys > 0) {   //only print when total keys are greater than 0
+            cout<<"Heap Tree: ";              
+            for(int loc=0;loc<totalkeys;loc++){      //if cond^n satisfies then apply for loop from 0 to total keys
+                cout<<heap[loc]<<" ";            //print heap[loc] value
             }
             cout<<endl;
-        } else {
+        } else {           //else empty
             cout<<"Heap is empty!\n";
         }
     }
-}heapObject;
+}heapObject;         //object creation
 
 int main(){
     int choice;
