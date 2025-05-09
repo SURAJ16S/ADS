@@ -2,34 +2,44 @@
 Assignment 6
 
 Problem Statement : a medical record system is a software application used to manage medical records including patient information medical history 
-and treatment plan .hash table can be used as a data structure to efficiently store and retrieve medical records.
+and treatment plan. hash table can be used as a data structure to efficiently store and retrieve medical records.
 */
 
 #include<iostream>
 using namespace std;
 
 class MedicalRecord {
-    int key[20],c[20],n; // keys and hash table
+    int key[20],c[20],n; // keys and hash table (c[]) and total elements (n)
+    //c[] is the hash table, c[i] = -2 means empty, c[i] = -1 means deleted
+    
+    //data to be accepted
     string name[20],history[20],plan[20]; // patient info arrays
-    int age[20],loc;
+    int age[20],loc; //loc : location for the hash table (where the records is stored)
 public:
     void table();    // initialize table
+
     void accept();   // input records
     void display();  // display all records
+    
     void search();   // search by key
     void modify();  // modify record by key
     void count(); // count records
 };
 
 void MedicalRecord::table() {
+    //accept the total number of records
     cout<<"Enter number of records: ";
     cin>>n;
+//accept total keys for the n records
     cout<<"Enter the key values: ";
     for (int i = 0; i < n; i++) {
         cin>>key[i];
+        //hash the key for the index location in hash table
         loc = key[i] % 10;
     }
-    for (int i = 0; i < 10; i++) c[i] = -2; // -2 means empty
+    for (int i = 0; i < 10; i++) {   //set all records to -2 (empty)
+        c[i] = -2; // -2 means empty
+    }
 }
 
 void MedicalRecord::accept() {

@@ -24,10 +24,11 @@ class AMS{
 
         //accept function
          void accept(){
+            //acept total cities
             cout<<"Enter total Number of Cities to accept : ";
             cin>>numofcities;
             
-        //accept city namee
+        //accept city name
             for(int i =0;i<numofcities;i++){
                 cout<<"Enter "<<i<< " Cities :";
                 cin>>cities[i];
@@ -37,7 +38,7 @@ class AMS{
             for(int j=0;j<numofcities;j++){
                 for(int k=0;k<numofcities;k++){
                     //set fuel 0 for the self loop
-                    if(cities[j] == cities[k]){
+                    if(cities[j] == cities[k]){   //same city fuel 0
                         adj[j][k] = 0;
                     }
 
@@ -54,7 +55,7 @@ class AMS{
             for(int i =0;i<numofcities;i++){
                 for(int j=0;j<numofcities;j++){
                     if(cities[i] == cities[j]){
-                        
+                        //dont print if both cities are same 
                     }
                     else{
                         cout<<cities[i]<<" to "<<cities[j]<<" : " <<adj[i][j]<<endl;
@@ -64,9 +65,10 @@ class AMS{
               
          }
 
-}flight;     //creation of 'flight' object
+}flight;     //object creation
 
  int main(){
+    //calling functions
     flight.accept();
     flight.display();
     return 0;

@@ -126,7 +126,7 @@ void employee::insert(employee *root, employee *next){
     }
 
 void employee::display(employee *root){
-//no recursive
+//non recursive
 }
 
 void employee::preorder(employee *root){

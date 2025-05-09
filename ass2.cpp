@@ -1,9 +1,11 @@
 // Student Management System (Binary Search Tree)
 
 /*
-binary search tree is the binary tree which is having : left child < root < right child
-
-*/#include <iostream>
+binary search tree is a data structure, it is the binary tree which follows the property : left child < root < right child
+time complety : log n (average) , n (worst case)
+applications : efficient searching , sorting algorithm ,  
+*/
+#include <iostream>
 using namespace std;
 
 class sms {
@@ -117,6 +119,7 @@ void sms::displayNonIIT(sms *root) {
     if (root == NULL) return;
     displayNonIIT(root->leftc);
     if (root->cet < 90)
+
         cout << root->name << "\t" << root->email << "\t" << root->seatno << "\t" << root->cet << endl;
     displayNonIIT(root->rightc);
 }

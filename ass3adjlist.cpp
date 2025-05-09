@@ -4,13 +4,12 @@ using namespace std;
 
 class fms{
     public:
+        int numofcity;  
+    //details to accept 
+        string city;
+        int fuel;
 
-    int numofcity;  
-    int fuel;
-
-    string city;
-
-    fms *next;
+        fms *next;
 
     void accept();
     void insertEdge();
@@ -50,30 +49,19 @@ void fms::insertEdge(){
         //compare the source city with the head array
         for(int j = 0; j < numofcity; j++){
             if(head[j]->city == sourcecity){
-            
+            //if sourcecity found in array then store into temp variable
                 fms *temp = head[j];
-                while(temp->next != NULL){
-                    temp = temp->next;
+                while(temp->next != NULL){   //traverse till the temp->next is not null
+                    temp = temp->next;    //update the temp to temp->next
                 }
+                //allocate memory to the temp->next
                 temp->next = new fms;
+                //store details in temp->next->data;
                 temp->next->city = destcity;
                 temp->next->fuel = fuel;
-                temp->next->next = NULL;
+                temp->next->next = NULL;    //set temp of next of next
                 break;
             }
-            // reverse the process for destination city
-            // if(head[j]->city == destcity){
-            
-            //     fms *temp = head[j];
-            //     while(temp->next != NULL){
-            //         temp = temp->next;
-            //     }
-            //     temp->next = new fms;
-            //     temp->next->city = sourcecity;
-            //     temp->next->fuel = fuel;
-            //     temp->next->next = NULL;
-            //     break;
-            // }
         }
     }
 }
