@@ -1,3 +1,6 @@
+/*
+Heap is a special tree-based data structure that satisfies the heap property.
+*/
 #include<iostream>
 using namespace std;
 
@@ -23,7 +26,7 @@ class heaptree{
     void built(int loc){
         //update the parent location
         int parent = (loc - 1) / 2;
-        while (loc > 0 && heap[parent] > heap[loc]){   //apply the while loop for loc>0 and head[parent] > head[loc]
+        while (loc > 0 && heap[parent] < heap[loc]){   //apply the while loop for loc>0 and head[parent] > head[loc]
             swap(heap[parent], heap[loc]);   //swap the position
             loc = parent;       //update the location and parent value
             parent = (loc - 1) / 2;
@@ -58,3 +61,4 @@ int main(){
     }while(choice != 0);
     return 0;
 }
+

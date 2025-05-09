@@ -12,9 +12,11 @@ class MedicalRecord {
     int key[20],c[20],n; // keys and hash table (c[]) and total elements (n)
     //c[] is the hash table, c[i] = -2 means empty, c[i] = -1 means deleted
     
-    //data to be accepted
+    //data to be accepted in array 
     string name[20],history[20],plan[20]; // patient info arrays
-    int age[20],loc; //loc : location for the hash table (where the records is stored)
+    int age[20];
+     
+    int loc; //loc : location for the hash table (where the records is stored)
 public:
     void table();    // initialize table
 
@@ -42,12 +44,21 @@ void MedicalRecord::table() {
     }
 }
 
+//algorithm of table :
+//1. accpe the total keys to enter
+//2. accept the key values
+//3. loc = key[i] % 10 //apply hashing function
+//4. set the hash table values to -2(empty)
+
 void MedicalRecord::accept() {
     for (int i = 0; i < n; i++) {
         loc = key[i] % 10;
-        while (c[loc] != -2) loc = (loc + 1) % 10; // linear probing
+        while (c[loc] != -2) {
+            loc = (loc + 1) % 10; //increment location by one 
+        } // linear probing
         c[loc] = i;
 
+        //accept the values 
         cout<<"Enter the name of the patient: ";
         cin>>name[i];
         cout<<"Enter the age of the patient: ";
@@ -59,25 +70,37 @@ void MedicalRecord::accept() {
     }
 }
 
+//algorithm of accept :
+/*
+1. apply for loop from 0 to n (total records)
+2. hash the key value and store into loc
+3. while c[loc] ! =-2 (not empty) then update loc to (loc+1)%10 (linear probing) 
+*/
+
 void MedicalRecord::display() {
     cout<<"The records are:\n";
     cout<<"| Key | Index | Name | Age | Medical History | Treatment Plan |\n";
     cout<<"---------------------------------------------------------------\n";
     for (int i = 0; i < 10; i++) {
         if (c[i] != -2) {
-            int index = c[i];
+            int index = c[i];         //store the hashtable[] index in index variable
             cout<<"| "<<key[index]<<" | "<<index<<" | "<<name[index]<<" | "<<age[index]<<" | "<<history[index]<<" | "<<plan[index]<<" |\n";
         }
     }
 }
 
 void MedicalRecord::search() {
+    //accept the key to search
     int k;
     cout<<"Enter the key to be searched: ";
     cin>>k;
+    //conver key to index
     loc = k % 10; //convert key to index
     //searching for the key in the hash table using linear probing   //c is the hash table
-    while (c[loc] != -2 && key[c[loc]] != k) loc = (loc + 1) % 10;
+    while (c[loc] != -2 && key[c[loc]] != k){
+        loc = (loc + 1) % 10; // Move to the next index if not equal
+    }
+
     if (c[loc] == -2) {
         cout<<"Record not found.\n";
     } else {
