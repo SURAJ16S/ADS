@@ -56,8 +56,8 @@ void StudentRecord::display() {
     for (int i = 0; i < 10; i++) {
         if (c[i] != -2) {
             int index = c[i];
-            int originalLoc = id[index] % 10;
-            string chainValue = (originalLoc != i) ? to_string(originalLoc) : "-";
+            int originalLoc = id[index] % 10;    //*
+            string chainValue = (originalLoc != i) ? to_string(originalLoc) : "-1";   //*
 
             cout << "| " << id[index] << " | " << index << " | " << name[index]
                  << " | " << age[index] << " | " << tenthMarks[index] << " | "

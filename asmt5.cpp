@@ -69,17 +69,17 @@ void JobSeeker::accept() {
 }
 
 void JobSeeker::dijkstraAlgorithm() {
-    int source = 0; // Assume starting city is the first entered
-    int shortestDistance[10];
-    bool visited[10] = {false};
+    int source = 0; // Assume starting city is the first entered        //u = source
+    int shortestDistance[10];                                          //weight[] 
+    bool visited[10] = {false};                                       //parent[] not needed 
 
     // Initialize distances to infinity
     for (int i = 0; i < totalCities; i++) {
-        shortestDistance[i] = 999;
+        shortestDistance[i] = 999;                //just initiallise the shortestdistnace array to 999 for all cities
     }
     shortestDistance[source] = 0; // Distance to itself is 0
 
-    for (int count = 0; count < totalCities; count++) {
+    for (int count = 0; count < totalCities; count++) {         //limit is totalcities not the totalcities-1
         int minDistance = 999, u = -1;
 
         // Find unvisited city with minimum distance
@@ -94,8 +94,7 @@ void JobSeeker::dijkstraAlgorithm() {
 
         // Update distances for adjacent cities
         for (int v = 0; v < totalCities; v++) {
-            if (!visited[v] && distance[u][v] != 999 &&
-                shortestDistance[u] + distance[u][v] < shortestDistance[v]) {
+            if (!visited[v] && distance[u][v] != 999 && shortestDistance[u] + distance[u][v] < shortestDistance[v]) {
                 shortestDistance[v] = shortestDistance[u] + distance[u][v];
             }
         }

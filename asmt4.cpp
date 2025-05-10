@@ -72,8 +72,8 @@ void IMS::primsAlgorithm() {
     bool visited[10] = {false};     // start as nothing is visited
     int parent[10]; // To store the parent of each city in the MST
     int weight[10];  //min weight
-    int min, u;       //u = source index
-int mstvalue = 0;
+    int min, u;       //u = source index  //min : minimum distance                                                                                                             
+    int mstvalue = 0;
     // Initialize weights to a high value
     for (int i = 0; i < totalCities; i++) {
         weight[i] = 999;
@@ -123,35 +123,6 @@ void IMS::display() {
         cout<<endl;
     }
 }
-
-/* PRINTING IN TABULAR FORM
-void display()
-    {
-        cout << "\nAdjacency Matrix (Fuel between Cities):\n";
-        cout << "\t";       //cross space
-        for (int j = 0; j < numofcities; j++)
-        {
-            cout << cities[j] << "\t";
-        }
-        cout << endl;
-        for (int i = 0; i < numofcities; i++)
-        {
-            cout << cities[i] << "\t";
-            for (int j = 0; j < numofcities; j++)
-            {
-                if (cities[i] == cities[j])
-                {
-                    cout << "0\t";
-                }
-                else
-                {
-                    cout << adj[i][j] << "\t";
-                }
-            }
-            cout << endl;
-        }
-
-*/
 
 int main(){
     interviewer.accept();

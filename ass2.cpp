@@ -204,7 +204,7 @@ void sms::displayroot(sms *root) {
         cout << "Tree is empty" << endl;
 }
 
-void sms::mirror(sms *root) {
+void sms::mirror(sms *root){
     if (root == NULL) return;
     swap(root->leftc, root->rightc);
     mirror(root->leftc);

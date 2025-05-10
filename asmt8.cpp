@@ -1,10 +1,3 @@
-/*
-Problem Definition: Optimal Binary Search Tree (OBST) for a General Store
-
- **Objective**:  
-Construct a binary search tree (BST) for a set of items (keys) in a general store such that the **total expected search cost** is minimized. Each item has a probability of being searched, and the goal is to arrange the items in the BST to reduce the average access time.
-*/
-
 #include <iostream>
 #include <iomanip>
 using namespace std;
@@ -12,8 +5,8 @@ using namespace std;
 class OptimalBST {
     int totalKeys; // Number of items (keys)
     string itemNames[10]; // Array to store item names (keys)
-    float successfulSearchProbability[10], unsuccessfulSearchProbability[11]; // Probability values
-    float weightMatrix[11][11], costMatrix[11][11]; // Matrices for dynamic programming calculations
+    float p[10], q[11]; // p: Successful search probability, q: Unsuccessful search probability
+    float w[11][11], c[11][11]; // w: Weight matrix, c: Cost matrix
     int rootMatrix[11][11]; // Stores optimal root positions
 
 public:
@@ -35,15 +28,15 @@ void OptimalBST::acceptData() {
     }
 
     // Input search probabilities
-    cout << "Enter probabilities of successful searches:\n";
+    cout << "Enter probabilities of successful searches (p):\n";
     for (int i = 0; i < totalKeys; i++) {
-        cin >> successfulSearchProbability[i];
+        cin >> p[i];
     }
 
     // Input probabilities for unsuccessful searches
-    cout << "Enter probabilities of unsuccessful searches:\n";
+    cout << "Enter probabilities of unsuccessful searches (q):\n";
     for (int i = 0; i <= totalKeys; i++) {
-        cin >> unsuccessfulSearchProbability[i];
+        cin >> q[i];
     }
 }
 
@@ -51,8 +44,8 @@ void OptimalBST::acceptData() {
 void OptimalBST::computeOptimalBST() {
     // Step 1: Initialize base cases (single-node trees)
     for (int i = 0; i <= totalKeys; i++) {
-        weightMatrix[i][i] = unsuccessfulSearchProbability[i];       //q : successfull search probability
-        costMatrix[i][i] = 0; // Zero cost for an empty subtree
+        w[i][i] = q[i]; // Initialize weight matrix
+        c[i][i] = 0; // Zero cost for an empty subtree
         rootMatrix[i][i] = 0; // No root exists in an empty range
     }
 
@@ -60,14 +53,14 @@ void OptimalBST::computeOptimalBST() {
     for (int gap = 1; gap <= totalKeys; gap++) { // 'gap' represents subtree length
         for (int i = 0; i <= totalKeys - gap; i++) {
             int j = i + gap; // End index of subtree
-            weightMatrix[i][j] = weightMatrix[i][j - 1] + successfulSearchProbability[j - 1] + unsuccessfulSearchProbability[j];
+            w[i][j] = w[i][j - 1] + p[j - 1] + q[j];
 
             float minimumCost = 9999; // Initialize minimum cost tracker
             int optimalRoot = 0; // Variable to store best root index
 
             // Step 3: Check every possible root between i & j and find the one with minimum cost
             for (int k = i + 1; k <= j; k++) {
-                float currentCost = costMatrix[i][k - 1] + costMatrix[k][j];
+                float currentCost = c[i][k - 1] + c[k][j];
                 if (currentCost < minimumCost) {
                     minimumCost = currentCost;
                     optimalRoot = k; // Store optimal root index
@@ -75,7 +68,7 @@ void OptimalBST::computeOptimalBST() {
             }
 
             // Update matrices
-            costMatrix[i][j] = weightMatrix[i][j] + minimumCost;
+            c[i][j] = w[i][j] + minimumCost;
             rootMatrix[i][j] = optimalRoot;
         }
     }
@@ -90,7 +83,7 @@ void OptimalBST::displayResults() {
     for (int gap = 0; gap <= totalKeys; gap++) {
         for (int i = 0; i <= totalKeys - gap; i++) {
             int j = i + gap;
-            cout << "W[" << i << "][" << j << "] = " << weightMatrix[i][j] << "\t";
+            cout << "W[" << i << "][" << j << "] = " << w[i][j] << "\t";
         }
         cout << endl;
     }
@@ -100,7 +93,7 @@ void OptimalBST::displayResults() {
     for (int gap = 0; gap <= totalKeys; gap++) {
         for (int i = 0; i <= totalKeys - gap; i++) {
             int j = i + gap;
-            cout << "C[" << i << "][" << j << "] = " << costMatrix[i][j] << "\t";
+            cout << "C[" << i << "][" << j << "] = " << c[i][j] << "\t";
         }
         cout << endl;
     }
@@ -115,7 +108,7 @@ void OptimalBST::displayResults() {
         cout << endl;
     }
 
-    cout << "\nMinimum cost of Optimal BST = " << costMatrix[0][totalKeys] << endl;
+    cout << "\nMinimum cost of Optimal BST = " << c[0][totalKeys] << endl;
     
     // Display tree structure
     cout << "\nOptimal Binary Search Tree Structure:\n";
@@ -137,31 +130,35 @@ void OptimalBST::constructTree(int start, int end, string parentItem, string bra
     constructTree(start, rootIndex - 1, currentItem, "Left Child");
     constructTree(rootIndex, end, currentItem, "Right Child");
 }
-OptimalBST obstObject; // Object creation
+
 // Main function
 int main() {
-int choice;
-do
-{
-    cout<<"1. Accept Data \t 2.Compute OBST \t 3.Display Result \t 0. Exit Program";
-cout<<"Enter the Choice : ";
-cin>>choice;
+    OptimalBST obstObject; // Object creation
+    int choice;
+    do {
+        cout << "1. Accept Data\t 2. Compute OBST\t 3. Display Result\t 0. Exit Program";
+        cout << "Enter your choice: ";
+        cin >> choice;
 
-switch(choice){
-    case 1: obstObject.acceptData();
-    break;
-    case 2:obstObject.computeOptimalBST();
-    cout<<"Compute successfully";
-    break;
-    case 3:obstObject.displayResults();
-    break;
-    case 0: cout<<"exiting the program..."<<endl;
-    break;
+        switch (choice) {
+            case 1:
+                obstObject.acceptData();
+                break;
+            case 2:
+                obstObject.computeOptimalBST();
+                cout << "Computation completed successfully";
+                break;
+            case 3:
+                obstObject.displayResults();
+                break;
+            case 0:
+                cout << "Exiting the program..." << endl;
+                break;
+            default:
+                cout << "Enter a valid choice" << endl;
+        }
 
-    default : cout<<"Enter Valid Choice"<<endl;
-}
-
-} while (choice!=0);
+    } while (choice != 0);
 
     return 0;
 }

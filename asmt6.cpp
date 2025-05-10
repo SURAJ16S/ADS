@@ -74,7 +74,9 @@ void MedicalRecord::accept() {
 /*
 1. apply for loop from 0 to n (total records)
 2. hash the key value and store into loc
-3. while c[loc] ! =-2 (not empty) then update loc to (loc+1)%10 (linear probing) 
+3. while c[loc] ! =-2 (not empty) then update loc to (loc+1)%10 (linear probing)
+4. c[loc] = i (store the index in the hash table)
+5. accept the name, age, medical history and treatment plan of the patient 
 */
 
 void MedicalRecord::display() {

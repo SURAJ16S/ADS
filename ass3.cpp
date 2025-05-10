@@ -21,7 +21,7 @@ class AMS{
         int numofcities;              
         string cities[100];
         int adj[100][100];
-
+ 
         //accept function
          void accept(){
             //acept total cities
