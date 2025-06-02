@@ -175,10 +175,14 @@ void sms::topper(sms *root) {
         cout << "No Student Record Found in Database" << endl;
         return;
     }
-    while (root->rightc != NULL)
+
+    while (root->rightc != NULL) {
         root = root->rightc;
+    }
+
     cout << "Topper Name: " << root->name << "  CET Score: " << root->cet << endl;
 }
+
 
 void sms::lowestScore(sms *root) {
     if (root == NULL) {
